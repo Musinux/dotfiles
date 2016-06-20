@@ -1,4 +1,19 @@
 [submodule "Oh-My-Zsh"]
 	path = .oh-my-zsh
 	url = ssh://git@github.com:/robbyrussell/oh-my-zsh.git
+[submodule "Vundle.vim"]
+	path = .vim/bundle/Vundle.vim
+	url = https://github.com/VundleVim/Vundle.vim
+[submodule "YCM-Generator"]
+	path = .vim/bundle/YCM-Generator
+	url = https://github.com/rdnetto/YCM-Generator
+[submodule "YouCompleteMe"]
+	path = .vim/bundle/YouCompleteMe
+	url = https://github.com/Valloric/YouCompleteMe
+#[submodule "vim-fugitive"]
+#	path = .vim/bundle/vim-fugitive"
+#	url = https://github.com/tpope/vim-fugitive
+#[submodule "vim-sensible"]
+#	path = .vim/bundle/vim-sensible"
+#	url = https://github.com/tpope/vim-sensible
 
