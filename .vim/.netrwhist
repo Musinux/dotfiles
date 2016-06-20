@@ -1,0 +1,5 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/home/louis/ClionProjects/fedup/src'
+let g:netrw_dirhist_2='/home/louis/ClionProjects/fedup/dvb-xml/models/dvb/tables'
+let g:netrw_dirhist_3='/home/louis/.byobu'
