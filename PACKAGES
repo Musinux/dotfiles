@@ -1,0 +1,1 @@
+sudo vim zsh terminator build-essential linux-headers-`uname -r` htop 
