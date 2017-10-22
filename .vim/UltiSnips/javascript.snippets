@@ -1,0 +1,48 @@
+global !p
+from javascript_snippets import (
+  semi, space_before_function_paren, keyword_spacing
+)
+endglobal
+
+snippet creq "assign a CommonJS-style module to a const"
+const ${0:${1/(.+\/)*(\w+)(-|\b|$)(\..+$)?/$2/g}} = require('$1')`!p snip.rv = semi(snip)`
+endsnippet
+
+# Arrow function
+snippet => "Arrow function" i
+(${1}) => {
+  ${VISUAL}
+}
+endsnippet
+
+# Class
+snippet class
+class ${1:name} {
+  constructor(${2:arg}) {
+    ${3:// init}
+  }
+  ${4}
+}
+endsnippet
+
+snippet then "then function for Promises"
+.then((${1}) => {
+  ${VISUAL}
+})
+endsnippet
+
+snippet afun "function (fun)" w
+async function ${1:function_name}`!p snip.rv = space_before_function_paren(snip)`(${2:argument}) {
+>-${VISUAL}$0
+}
+endsnippet
+
+snippet resolve "Promise.resolve()"
+Promise.resolve(${VISUAL})
+endsnippet
+
+snippet cb "Callback"
+(err, ${1}) => {
+  ${VISUAL}
+}
+endsnippet
