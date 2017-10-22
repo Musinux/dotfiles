@@ -1,3 +1,4 @@
+setxkbmap -option "nbsp:none"
 # Path to your oh-my-zsh installation.
   export ZSH=/home/louis/.oh-my-zsh
 
