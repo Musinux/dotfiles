@@ -16,11 +16,14 @@ Plugin 'tpope/vim-surround'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'tomtom/tcomment_vim'
+Plugin 'mileszs/ack.vim'
 call vundle#end()
 
 filetype indent on
 syntax on
 set tabstop=2
+set mouse=a
+set path+=~/pepper/prod_PlatypusServices/**
 set backspace=indent,eol,start
 set expandtab shiftwidth=2 smarttab
 set list
@@ -57,3 +60,14 @@ nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
 
 autocmd CompleteDone * pclose
+
+" %% expands the full dirpath
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep --smart-case --ignore tags --ignore dist --ignore uploads'
+endif
+cnoreabbrev ag Ack
+cnoreabbrev aG Ack
+cnoreabbrev Ag Ack
+cnoreabbrev AG Ack
