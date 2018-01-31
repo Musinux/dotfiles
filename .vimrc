@@ -47,7 +47,7 @@ let g:ycm_confirm_extra_conf = 0
 " Activate the javascript standard linter for syntastic
 let g:syntastic_javascript_checkers = ['standard']
 " Correction auto
-autocmd bufwritepost *.js silent! execute "!standard --fix % > /dev/null 2>&1"
+autocmd bufwritepost *.js silent! execute "!standard --fix % > /dev/null 2>&1" | edit! | redraw!
 set autoread
 " don't show a 20+ props on the first char I type
 let g:ycm_min_num_of_chars_for_completion = 2
