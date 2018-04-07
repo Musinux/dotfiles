@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_2='/home/louis/pepper/prod_PlatypusServices/pps-forms/routes'
+let g:netrw_dirhist_3='/home/louis/pepper/prod_PlatypusServices/pps-forms/test/routes'
+let g:netrw_dirhist_4='/home/louis/pepper/prod_PlatypusServices/pps-forms/routes'
+let g:netrw_dirhist_5='/home/louis/pepper/prod_PlatypusServices/pps-forms/models/FormularAnswer'
+let g:netrw_dirhist_6='/home/louis/pepper/test/foreach.js'
+let g:netrw_dirhist_7='/home/louis/pepper/prod_PlatypusServices/pps-schema-helper/tests/models/Resource'
