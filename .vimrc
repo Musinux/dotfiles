@@ -15,19 +15,22 @@ Plugin 'rdnetto/YCM-Generator' " An auto-completion generator for YCM, for C pro
 Plugin 'w0rp/ale' " Async Syntax checker (linter) 
 Plugin 'wavded/vim-stylus' " The stylus syntax highlighter (stylus is a CSS preprocessor)
 Plugin 'pangloss/vim-javascript' " A better syntax higlighting for javascript
-Plugin 'tpope/vim-surround' " bindings to be able to add or remove quotes and stuff aroud text objects
-Plugin 'SirVer/ultisnips' " tool to have snippets of code that you can add on the fly
-Plugin 'honza/vim-snippets' " utlisnips default snippets
+" Plugin 'tpope/vim-surround' " bindings to be able to add or remove quotes and stuff aroud text objects
+" Plugin 'SirVer/ultisnips' " tool to have snippets of code that you can add on the fly
+" Plugin 'honza/vim-snippets' " utlisnips default snippets
 Plugin 'mileszs/ack.vim' " Tool to use ack or ag as a search engine instead of grep. Far more efficient
 Plugin 'musinux/coverage.vim' " Manage test coverage reports
 Plugin 'martinda/Jenkinsfile-vim-syntax' " Manage Jenkinsfile syntax highlight
-Plugin 'rust-lang/rust.vim' " Rust toolkit
+" Plugin 'rust-lang/rust.vim' " Rust toolkit
 Plugin 'othree/html5.vim' " better indent css/js in html
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/colorizer'
+Plugin 'posva/vim-vue'
 Plugin 'tpope/vim-fugitive' " Git commands for vim 
-Plugin 'wincent/command-t' " Efficient file explorer
+Plugin 'junegunn/limelight.vim' " to highlight specific lines on code
+" Plugin 'wincent/command-t' " Efficient file explorer
+" Plugin 'leafgarland/typescript-vim' " typescript syntax
 call vundle#end()
 
 filetype indent on
@@ -74,6 +77,8 @@ set foldmethod=syntax
 set foldlevelstart=20
 set scrolloff=2
 
+" python3 stuff
+
 """" JS stuff
 
 " activate JSDoc highlighting
@@ -86,12 +91,19 @@ let g:ycm_goto_buffer_command = 'horizontal-split'
 " let g:syntastic_javascript_checkers = ['standard']
 " let g:syntastic_always_populate_loc_list = 1
 " Ale, new syntaxic checker
-let g:ale_linters = {'javascript': ['standard']}
+" let g:ale_linters = {'javascript': ['standard']}
+let g:ale_linters = {'javascript': ['eslint'], 'vue': ['eslint']}
+let g:ale_javascript_eslint_options = "--debug"
+let g:ale_linter_aliases = {'vue': ['html', 'css', 'scss', 'stylus', 'javascript']}
 let g:ale_linters_explicit = 1
 let g:airline#extensions#ale#enabled = 1
 let g:ale_sign_column_always = 1
+
+"" vue js
+autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html
+
 " Correction auto shortcut: AltGr+Maj+s
-nnoremap „ :silent! execute "!standard --fix % > /dev/null 2>&1"<CR>
+nnoremap „ :silent! execute "!eslint --fix % > /dev/null 2>&1"<CR>
 " autocmd bufwritepost *.js 
 set autoread
 
@@ -136,7 +148,7 @@ command! -buffer RustFmt call rustfmt#Format()
 autocmd bufwritepost *.rs silent! execute "RustFmt"
 
 " show numbers & relative numbering with Ctrl+N
-nmap <C-N> :set invrelativenumber invnumber<CR>
+nmap <C-N> :set invnumber<CR>
 " Get the Type of the current highlighted piece of code
 nmap <F2> :YcmCompleter GetType<CR>
 " Go to the definition of a function/method
@@ -188,12 +200,12 @@ set splitbelow
 set splitright
 
 " Caps lock is now the ^2 key instead of CAPS LOCK (next to the 1)
-set imsearch=-1
+"set imsearch=-1
 " set keymap=insert-only_capslock
-set iminsert=0
-noremap  ² :let &l:imi = !&l:imi<CR>
-inoremap ² <C-O>:let &l:imi = !&l:imi<CR>
-cnoremap ² <C-^>
+"set iminsert=0
+"noremap  ² :let &l:imi = !&l:imi<CR>
+"inoremap ² <C-O>:let &l:imi = !&l:imi<CR>
+"cnoremap ² <C-^>
 
 
 " Search for the visually selected text instead of the word in the visual
@@ -210,3 +222,7 @@ endfunction
 " disable Help when hitting F1
 map <F1> <Esc>
 imap <F1> <Esc>
+
+" limelight
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_guifg = '#777777'
