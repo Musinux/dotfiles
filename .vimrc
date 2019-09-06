@@ -15,9 +15,9 @@ Plugin 'rdnetto/YCM-Generator' " An auto-completion generator for YCM, for C pro
 Plugin 'w0rp/ale' " Async Syntax checker (linter) 
 Plugin 'wavded/vim-stylus' " The stylus syntax highlighter (stylus is a CSS preprocessor)
 Plugin 'pangloss/vim-javascript' " A better syntax higlighting for javascript
-" Plugin 'tpope/vim-surround' " bindings to be able to add or remove quotes and stuff aroud text objects
-" Plugin 'SirVer/ultisnips' " tool to have snippets of code that you can add on the fly
-" Plugin 'honza/vim-snippets' " utlisnips default snippets
+Plugin 'tpope/vim-surround' " bindings to be able to add or remove quotes and stuff aroud text objects
+Plugin 'SirVer/ultisnips' " tool to have snippets of code that you can add on the fly
+Plugin 'honza/vim-snippets' " utlisnips default snippets
 Plugin 'mileszs/ack.vim' " Tool to use ack or ag as a search engine instead of grep. Far more efficient
 Plugin 'musinux/coverage.vim' " Manage test coverage reports
 Plugin 'martinda/Jenkinsfile-vim-syntax' " Manage Jenkinsfile syntax highlight
@@ -29,8 +29,17 @@ Plugin 'vim-scripts/colorizer'
 Plugin 'posva/vim-vue'
 Plugin 'tpope/vim-fugitive' " Git commands for vim 
 Plugin 'junegunn/limelight.vim' " to highlight specific lines on code
-" Plugin 'wincent/command-t' " Efficient file explorer
+Plugin 'wincent/command-t' " Efficient file explorer
 " Plugin 'leafgarland/typescript-vim' " typescript syntax
+Plugin 'mbbill/undotree'
+Plugin 'tmhedberg/SimpylFold' " folding for python
+Plugin 'scrooloose/nerdcommenter' " easy comments
+" Plugin 'hail2u/vim-css3-syntax' " better CSS3 syntax
+Plugin 'JulesWang/css.vim'
+Plugin 'stevearc/vim-arduino'
+Plugin 'sudar/vim-arduino-syntax'
+Plugin 'justinmk/vim-syntax-extra' " better c syntax highlighting
+Plugin 'altercation/vim-colors-solarized'
 call vundle#end()
 
 filetype indent on
@@ -53,7 +62,7 @@ let g:CommandTWildIgnore=&wildignore . ",*/node_modules"
 nmap <silent> <A-e> :tabn<CR>
 
 " when typing comments, automatically break lines after 120 chars
-set textwidth=110
+set textwidth=90
 
 " Smoother scroll with C-Y and C-D
 set scroll=2
@@ -87,12 +96,13 @@ let g:javascript_plugin_apidoc = 1
 " I don't remember
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_goto_buffer_command = 'horizontal-split'
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 " Activate the javascript standard linter for syntastic
 " let g:syntastic_javascript_checkers = ['standard']
 " let g:syntastic_always_populate_loc_list = 1
 " Ale, new syntaxic checker
 " let g:ale_linters = {'javascript': ['standard']}
-let g:ale_linters = {'javascript': ['eslint'], 'vue': ['eslint']}
+let g:ale_linters = {'javascript': ['eslint'], 'vue': ['eslint'], 'c': ['gcc']}
 let g:ale_javascript_eslint_options = "--debug"
 let g:ale_linter_aliases = {'vue': ['html', 'css', 'scss', 'stylus', 'javascript']}
 let g:ale_linters_explicit = 1
@@ -115,17 +125,7 @@ let g:ycm_auto_trigger = 1
 
 "" Path for test-coverage file to read
 let g:coverage_json_project_path = "~/pepper/prod_PlatypusServices/"
-" let g:coverage_json_report_pathes = [
-"       \ 'Platypus-Services/coverage/coverage-final.json',
-"       \ 'Platypus-Services/coverage/Firefox 52.0.0 (Linux 0.0.0)/coverage-final.json',
-"       \ 'pps-forms/coverage/coverage-final.json',
-"       \ 'pps-forms/coverage/Firefox 52.0.0 (Linux 0.0.0)/coverage-final.json',
-"       \ 'pps-uploads/coverage/coverage-final.json',
-"       \ 'pps-uploads/coverage/Firefox 52.0.0 (Linux 0.0.0)/coverage-final.json',
-"       \ 'pps-datasource/coverage/coverage-final.json',
-"       \ 'pps-utils/coverage/coverage-final.json',
-"       \ 'pps-schema-helper/coverage/coverage-final.json'
-"       \ ]
+let g:coverage_json_report_pathes = []
 let g:coverage_sign_uncovered = 'ߋ'
 let g:coverage_show_covered = 0
 let g:coverage_show_uncovered = 1
@@ -226,3 +226,10 @@ imap <F1> <Esc>
 " limelight
 let g:limelight_conceal_ctermfg = 'gray'
 let g:limelight_conceal_guifg = '#777777'
+
+" Add spaces after comment delimiters by default
+let mapleader = "-"
+let g:NERDSpaceDelims = 1
+let g:NERDTogleCheckAllLines = 1
+
+let g:ale_c_gcc_options = '-Wall'
