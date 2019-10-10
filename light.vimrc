@@ -3,8 +3,7 @@
 " $ mkdir -p ~/.vim/colors && wget -O ~/.vim/colors/monokai4.vim https://raw.githubusercontent.com/Musinux/dotfiles/master/.vim/colors/monokai4.vim
 " $ mkdir -p ~/.vim/macros && wget -O ~/.vim/macros/matchit.vim https://raw.githubusercontent.com/tmhedberg/matchit/master/plugin/matchit.vim
 " $ sudo apt install shellcheck
-" $ vim +PluginInstall
-"  (type :q to quit after install)
+" $ vim +PluginInstall +qall
 " $ ~/.vim/bundle/YouCompleteMe/install.py --clang-completer
 
 
