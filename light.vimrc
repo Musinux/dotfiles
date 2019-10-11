@@ -10,7 +10,7 @@
 " Stuff to initialize vundle and pathogen
 set exrc
 set secure
-execute pathogen#infect()
+" execute pathogen#infect()
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
