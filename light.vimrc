@@ -1,8 +1,8 @@
 " To make everything work:
+" $ sudo apt install git vim-nox shellcheck build-essential cmake
 " $ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 " $ mkdir -p ~/.vim/colors && wget -O ~/.vim/colors/monokai4.vim https://raw.githubusercontent.com/Musinux/dotfiles/master/.vim/colors/monokai4.vim
 " $ mkdir -p ~/.vim/macros && wget -O ~/.vim/macros/matchit.vim https://raw.githubusercontent.com/tmhedberg/matchit/master/plugin/matchit.vim
-" $ sudo apt install vim-nox shellcheck build-essential cmake
 " $ vim +PluginInstall +qall
 " $ cd ~/.vim/bundle/YouCompleteMe && git submodule update --init --recursive && cd -
 " $ ~/.vim/bundle/YouCompleteMe/install.py --clang-completer
