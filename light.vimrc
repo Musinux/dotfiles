@@ -1,5 +1,5 @@
 " To make everything work:
-" $ sudo apt install git vim-nox shellcheck build-essential cmake
+" $ sudo apt install git python3-dev vim-nox shellcheck build-essential cmake
 " $ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 " $ mkdir -p ~/.vim/colors && wget -O ~/.vim/colors/monokai4.vim https://raw.githubusercontent.com/Musinux/dotfiles/master/.vim/colors/monokai4.vim
 " $ mkdir -p ~/.vim/macros && wget -O ~/.vim/macros/matchit.vim https://raw.githubusercontent.com/tmhedberg/matchit/master/plugin/matchit.vim
