@@ -4,7 +4,7 @@
 " $ mkdir -p ~/.vim/macros && wget -O ~/.vim/macros/matchit.vim https://raw.githubusercontent.com/tmhedberg/matchit/master/plugin/matchit.vim
 " $ sudo apt install shellcheck
 " $ vim +PluginInstall +qall
-" $ cd ~/.vim/bundle/YouCompleteMe && git submodule update --init --recursive
+" $ cd ~/.vim/bundle/YouCompleteMe && git submodule update --init --recursive && cd -
 " $ ~/.vim/bundle/YouCompleteMe/install.py --clang-completer
 
 
