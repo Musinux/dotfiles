@@ -4,8 +4,6 @@
 " $ mkdir -p ~/.vim/colors && wget -O ~/.vim/colors/monokai4.vim https://raw.githubusercontent.com/Musinux/dotfiles/master/.vim/colors/monokai4.vim
 " $ mkdir -p ~/.vim/macros && wget -O ~/.vim/macros/matchit.vim https://raw.githubusercontent.com/tmhedberg/matchit/master/plugin/matchit.vim
 " $ vim +PluginInstall +qall
-" $ cd ~/.vim/bundle/YouCompleteMe && git submodule update --init --recursive && cd -
-" $ ~/.vim/bundle/YouCompleteMe/install.py --clang-completer
 
 
 " Stuff to initialize vundle and pathogen
@@ -18,8 +16,8 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim' " Bundle package
-Plugin 'Valloric/YouCompleteMe' " Auto-completion plugin, a must-have
-Plugin 'w0rp/ale' " Async Syntax checker (linter, fixer, etc.) 
+Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+Plugin 'w0rp/ale' " Async Syntax checker (linter, fixer, etc.)
 Plugin 'mileszs/ack.vim' " Tool to use ack or ag as a search engine instead of grep. Far more efficient
 Plugin 'vim-airline/vim-airline' " have a nice status bar
 Plugin 'vim-airline/vim-airline-themes' " have an even nicer status bar
@@ -56,10 +54,12 @@ set foldmethod=syntax
 " when I fold, fold everything up to the 20th level
 set foldlevelstart=20
 set scrolloff=2
-
-let g:airline#extensions#ale#enabled = 1
-let g:ale_sign_column_always = 1
-
+let g:ale_linters = {
+            \'javascript': ['eslint'],
+            \'vue': ['eslint']
+            \}
+let g:ale_javascript_eslint_options = "--debug"
+let g:ale_linter_aliases = {'vue': ['html', 'css', 'scss', 'stylus', 'javascript']}
 " automatically read a file that was modified outside the editor (and ask user for what to do)
 set autoread
 
