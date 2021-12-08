@@ -9,74 +9,87 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim' " Bundle package
-Plugin 'Valloric/YouCompleteMe' " Auto-completion plugin, a must-have
-Plugin 'rdnetto/YCM-Generator' " An auto-completion generator for YCM, for C projects (create appropriate tags)
-"Plugin 'vim-syntastic/syntastic' " A syntax checker, with default languages. Important for StandardJS
 Plugin 'w0rp/ale' " Async Syntax checker (linter) 
+Plugin 'neoclide/coc.nvim'
+Plugin 'neoclide/coc-tsserver'
 Plugin 'wavded/vim-stylus' " The stylus syntax highlighter (stylus is a CSS preprocessor)
 Plugin 'pangloss/vim-javascript' " A better syntax higlighting for javascript
 Plugin 'tpope/vim-surround' " bindings to be able to add or remove quotes and stuff aroud text objects
-Plugin 'SirVer/ultisnips' " tool to have snippets of code that you can add on the fly
-Plugin 'honza/vim-snippets' " utlisnips default snippets
+Plugin 'tpope/vim-fugitive' " git
+"Plugin 'SirVer/ultisnips' " tool to have snippets of code that you can add on the fly
+"Plugin 'honza/vim-snippets' " utlisnips default snippets
 Plugin 'mileszs/ack.vim' " Tool to use ack or ag as a search engine instead of grep. Far more efficient
 Plugin 'musinux/coverage.vim' " Manage test coverage reports
-Plugin 'martinda/Jenkinsfile-vim-syntax' " Manage Jenkinsfile syntax highlight
-" Plugin 'rust-lang/rust.vim' " Rust toolkit
 Plugin 'othree/html5.vim' " better indent css/js in html
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/colorizer'
-Plugin 'posva/vim-vue'
-Plugin 'tpope/vim-fugitive' " Git commands for vim 
-Plugin 'junegunn/limelight.vim' " to highlight specific lines on code
 Plugin 'wincent/command-t' " Efficient file explorer
-" Plugin 'leafgarland/typescript-vim' " typescript syntax
 Plugin 'mbbill/undotree'
 Plugin 'tmhedberg/SimpylFold' " folding for python
 Plugin 'scrooloose/nerdcommenter' " easy comments
-" Plugin 'hail2u/vim-css3-syntax' " better CSS3 syntax
 Plugin 'JulesWang/css.vim'
-Plugin 'stevearc/vim-arduino'
-Plugin 'sudar/vim-arduino-syntax'
 Plugin 'justinmk/vim-syntax-extra' " better c syntax highlighting
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'editorconfig/editorconfig-vim' " Support .editorconfig files
+Plugin 'lbrayner/vim-rzip' " Read into zip files
 call vundle#end()
 
 filetype indent on
 syntax on
 
-" don't show the keymapping because it's always the same
-" let g:airline#extensions#keymap#enabled='0'
+
+" easy swap two characters
+:nnoremap <silent> gc xph
+
+" auto indent on MacOS ...
+" :nnoremap -- ==
+" :vnoremap -- ==
+
+" remap exit terminal insert mode for macos
+" tnoremap <Esc><Esc> <C-\><C-n>
+" remap new terminal tab
+command! TT tabe <bar> term
 
 " default netrw (file browser) mode is 3 (tree-like print)
 let g:netrw_liststyle=3
 let g:netrw_banner = 0
 
+nnoremap <S-Up> :m-2<CR>
+nnoremap <S-Down> :m+<CR>
+inoremap <S-Up> <Esc>:m-2<CR>
+inoremap <S-Down> <Esc>:m+<CR>
+
 " file explorer (CommandT)
 nmap <silent> <A-t> <Plug>(CommandT)
 nmap <silent> <A-b> <Plug>(CommandTBuffer)
 nmap <silent> <A-j> <Plug>(CommandTJump)
-let g:CommandTWildIgnore=&wildignore . ",*/node_modules"
+let g:CommandTWildIgnore=&wildignore . ",*/node_modules,*/coverage"
 
 " :tabn shortcut => Alt-E (think of Ctrl+E in term that goes to the right)
 nmap <silent> <A-e> :tabn<CR>
+nmap <silent> <A-z> :tabp<CR>
 
-" when typing comments, automatically break lines after 120 chars
-set textwidth=90
+" when typing comments, automatically break lines after 100 chars
+" set textwidth=100
 
 " Smoother scroll with C-Y and C-D
 set scroll=2
 
-" Options to have all indentation formatted the same way: 2 spaces, no tab
-set tabstop=2
-set expandtab shiftwidth=2 smarttab softtabstop=2
+" Options to have all indentation formatted the same way: tab on 2 spaces
+" tabs to spaces > replaced by .editorconfig
+" set expandtab
+" set tabstop=2
+" set shiftwidth=2  softtabstop=2
+set smarttab
+
 set list
-" Tool to highlight tabs characters, because we don't want them
+" Tool to highlight tabs characters
 set listchars=tab:>-"
+
+set nolist
 " activate the mouse, but don't start inserting when I click
 set mouse=nicr
-" search path for ack/ag/grep
-set path+=~/pepper/prod_PlatypusServices/**
 " fix backspace default behaviour
 set backspace=indent,eol,start
 
@@ -86,47 +99,39 @@ set foldmethod=syntax
 set foldlevelstart=20
 set scrolloff=2
 
-" python3 stuff
-
 """" JS stuff
 
 " activate JSDoc highlighting
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_apidoc = 1
-" I don't remember
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_goto_buffer_command = 'horizontal-split'
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-" Activate the javascript standard linter for syntastic
-" let g:syntastic_javascript_checkers = ['standard']
-" let g:syntastic_always_populate_loc_list = 1
-" Ale, new syntaxic checker
-" let g:ale_linters = {'javascript': ['standard']}
-let g:ale_linters = {'javascript': ['eslint'], 'vue': ['eslint'], 'c': ['gcc']}
+let g:ale_linters = {'javascript': ['prettier', 'eslint'], 'sh': ['shellcheck']}
+let g:ale_fixers = {'javascript': ['eslint']}
+let g:ale_fix_on_save = 1
 let g:ale_javascript_eslint_options = "--debug"
 let g:ale_linter_aliases = {'vue': ['html', 'css', 'scss', 'stylus', 'javascript']}
 let g:ale_linters_explicit = 1
 let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#branch#enabled = 0
+let g:airline#extensions#encoding#enabled = 0
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+let g:airline_powerline_fonts = 1
+let g:airline_section_x = ''
+
 let g:ale_sign_column_always = 1
 
 "" vue js
 autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html
 
 " Correction auto shortcut: AltGr+Maj+s
-nnoremap „ :silent! execute "!eslint --fix % > /dev/null 2>&1"<CR>
+" nnoremap „ :silent! execute "!eslint --fix % > /dev/null 2>&1"<CR>
 " autocmd bufwritepost *.js 
 set autoread
 
-" autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
-" don't show a 20+ props on the first char I type
-let g:ycm_min_num_of_chars_for_completion = 2
-" auto trigger the YCM suggestions
-let g:ycm_auto_trigger = 1
-
 "" Path for test-coverage file to read
-let g:coverage_json_project_path = "~/pepper/prod_PlatypusServices/"
-let g:coverage_json_report_pathes = []
-let g:coverage_sign_uncovered = 'ߋ'
+let g:coverage_json_project_path = "~/projects/"
+" let g:coverage_json_report_path = "coverage/coverage-final.json"
+let g:coverage_json_report_pathes = ["coverage/coverage-final.json"]
+let g:coverage_sign_uncovered = '😢'
 let g:coverage_show_covered = 0
 let g:coverage_show_uncovered = 1
 
@@ -141,25 +146,12 @@ let g:ultisnips_javascript = {
       \ 'space-before-function-paren': 'always'
       \ }
 
-" Rust syntastic
-let g:syntastic_rust_checkers = ['cargo']
-let g:rustfmt_command = "rustup run nightly rustfmt"
-command! -buffer RustFmt call rustfmt#Format()
-autocmd bufwritepost *.rs silent! execute "RustFmt"
-
 " show numbers & relative numbering with Ctrl+N
 nmap <C-N> :set invnumber<CR>
-" Get the Type of the current highlighted piece of code
-nmap <F2> :YcmCompleter GetType<CR>
-" Go to the definition of a function/method
-nmap <F3> :YcmCompleter GoToDefinition<CR>
 nmap <silent> <A-Up> :wincmd k<CR>
 nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
-
-" close YCM window after showing the GetType helper
-autocmd CompleteDone * pclose
 
 " %% expands the full dirpath
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
@@ -167,24 +159,24 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 " Convert the ack package to ag if 'ag - the silver researcher' is available
 if executable('ag')
-  let g:ackprg = 'ag --vimgrep --smart-case --ignore node_modules --ignore tags --ignore doc --ignore dist --ignore uploads --ignore test'
+  let g:ackprg = 'ag --vimgrep --smart-case --ignore node_modules --ignore tags --ignore doc --ignore dist --ignore yarn.lock'
 endif
 cnoreabbrev ag Ack
 cnoreabbrev aG Ack
 cnoreabbrev Ag Ack
 cnoreabbrev AG Ack 
 " Disable the arrow keys
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
+" noremap <Up> <Nop>
+" noremap <Down> <Nop>
+" noremap <Left> <Nop>
+" noremap <Right> <Nop>
 
 inoremap jk <Esc>
 nmap ù %
 vmap ù %
 
 " disable Shift^K for js
-au FileType javascript noremap <S-K> <Nop>
+" au FileType javascript noremap <S-K> <Nop>
 
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -223,13 +215,76 @@ endfunction
 map <F1> <Esc>
 imap <F1> <Esc>
 
-" limelight
-let g:limelight_conceal_ctermfg = 'gray'
-let g:limelight_conceal_guifg = '#777777'
-
 " Add spaces after comment delimiters by default
 let mapleader = "-"
 let g:NERDSpaceDelims = 1
 let g:NERDTogleCheckAllLines = 1
 
-let g:ale_c_gcc_options = '-Wall'
+" Run jest for current project
+command! -nargs=0 Jest :call  CocAction('runCommand', 'jest.projectTest')
+
+" Run jest for current file
+command! -nargs=0 JestCurrent :call  CocAction('runCommand', 'jest.fileTest', ['%'])
+
+" Run jest for current test
+nnoremap <leader>te :call CocAction('runCommand', 'jest.singleTest')<CR>
+
+" Init jest in current cwd, require global jest command exists
+command! JestInit :call CocAction('runCommand', 'jest.init')
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+
+"""" <This part is for yarn pnp>
+
+" Decode URI encoded characters
+function! DecodeURI(uri)
+    return substitute(a:uri, '%\([a-fA-F0-9][a-fA-F0-9]\)', '\=nr2char("0x" . submatch(1))', "g")
+endfunction
+
+" Attempt to clear non-focused buffers with matching name
+function! ClearDuplicateBuffers(uri)
+    " if our filename has URI encoded characters
+    if DecodeURI(a:uri) !=# a:uri
+        " wipeout buffer with URI decoded name - can print error if buffer in focus
+        sil! exe "bwipeout " . fnameescape(DecodeURI(a:uri))
+        " change the name of the current buffer to the URI decoded name
+        exe "keepalt file " . fnameescape(DecodeURI(a:uri))
+        " ensure we don't have any open buffer matching non-URI decoded name
+        sil! exe "bwipeout " . fnameescape(a:uri)
+    endif
+endfunction
+
+function! RzipOverride()
+    " Disable vim-rzip's autocommands
+    autocmd! zip BufReadCmd   zipfile:*,zipfile:*/*
+    exe "au! zip BufReadCmd ".g:zipPlugin_ext
+
+    " order is important here, setup name of new buffer correctly then fallback to vim-rzip's handling
+    autocmd zip BufReadCmd   zipfile:*  call ClearDuplicateBuffers(expand("<amatch>"))
+    autocmd zip BufReadCmd   zipfile:*  call rzip#Read(DecodeURI(expand("<amatch>")), 1)
+
+    if has("unix")
+        autocmd zip BufReadCmd   zipfile:*/*  call ClearDuplicateBuffers(expand("<amatch>"))
+        autocmd zip BufReadCmd   zipfile:*/*  call rzip#Read(DecodeURI(expand("<amatch>")), 1)
+    endif
+
+    exe "au zip BufReadCmd ".g:zipPlugin_ext."  call rzip#Browse(DecodeURI(expand('<amatch>')))"
+endfunction
+
+autocmd VimEnter * call RzipOverride()
+
+"""" </This part is for yarn pnp>
